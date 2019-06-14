@@ -140,3 +140,22 @@ hr{
    display: flex !important;
 }
 }
+
+@media (max-width: 575px){
+	.main_heading {
+		padding: 0 !important;
+		display: table;
+		width: 100%;
+	}
+	.right_class, .left_class {
+		float: none;
+		display: table;
+		width: 100%;
+		text-align: center;
+		margin: 10px 0px !important;
+	}
+	.right_class {
+		float: right;
+		margin-top: 10px;
+	}
+}

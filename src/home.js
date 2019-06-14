@@ -276,10 +276,10 @@ class SimpleTabs extends React.Component {
       <Grid container spacing={12}>
     	<div className="main_container">
       <div className="main_heading">
-      <Grid item md={9} className="left_class">
+      <Grid item item xs={12} md={9} className="left_class">
     	<p style={{color:"#3f50b5"}}>CricBuzz</p>
       </Grid>
-      <Grid item md={3} className="right_class">
+      <Grid item xs={12} md={3} className="right_class">
       <Button variant="contained" color="primary" className="players_btn">
       <Link to={"/player"}><span style={{textDecoration:'none'}}>Players</span></Link>
       </Button>
@@ -320,12 +320,12 @@ class SimpleTabs extends React.Component {
                   <div className="match1">
                   <Grid container spacing={12}>
 
-                  <Grid item sm={9} md={9}>
+                  <Grid sm={9} md={9}>
                   <span dangerouslySetInnerHTML={{__html: item.title.split(" v ")[0]}}></span>
                   <b> Vs </b><span dangerouslySetInnerHTML={{__html: item.title.split(" v ")[1]}}></span>
                   </Grid>
 
-                  <Grid item sm={3} md={3}>
+                  <Grid sm={3} md={3}>
                   <Button className="link_btn" variant="contained">
                   <Link to={"/score/"+item.unique_id}><span style={{textDecoration:'none',color:"black"}}>Score</span></Link>
                   </Button>

@@ -100,6 +100,8 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import  propservice from "./propService.js";
+
 import AOS from 'aos';
 
 const InnerHTML = require('dangerously-set-inner-html');
@@ -159,6 +161,7 @@ class SimpleTabs extends React.Component {
   }
   componentDidMount(){
       // console.log("data of live score");
+      propservice.getprop(this.props);
       fetch("https://cricapi.com/api/cricket?apikey=KxFEC7542kcdZoSrfyOH452AoL42")
       .then(res => res.json())
       .then(json =>{
@@ -256,6 +259,12 @@ class SimpleTabs extends React.Component {
     //                   return date.replace(pattern, replacement);
     //                 }
 
+    logout(){
+      console.log("logout1");
+      localStorage.removeItem("email");
+      console.log("logout2");
+    }
+
   render() {
     // let display_data;
     const { classes } = this.props;
@@ -280,10 +289,10 @@ class SimpleTabs extends React.Component {
     	<p style={{color:"#3f50b5"}}>CricBuzz</p>
       </Grid>
       <Grid item xs={12} md={3} className="right_class">
-      <Button variant="contained" color="primary" className="players_btn">
+      <Button title="Find Player" variant="contained" color="primary" className="players_btn">
       <Link to={"/player"}><span style={{textDecoration:'none'}}>Players</span></Link>
       </Button>
-      <Button variant="contained" className="player_btn">
+      <Button variant="contained" className="player_btn" onClick={this.logout}>
       <Link to={"/"}><span style={{textDecoration:'none',color:"black"}}>Logout</span></Link>
       </Button>
       </Grid>
@@ -326,7 +335,7 @@ class SimpleTabs extends React.Component {
                   </Grid>
 
                   <Grid sm={3} md={3}>
-                  <Button className="link_btn" variant="contained">
+                  <Button title="Match Score" className="link_btn" variant="contained">
                   <Link to={"/score/"+item.unique_id}><span style={{textDecoration:'none',color:"black"}}>Score</span></Link>
                   </Button>
                   </Grid>
@@ -389,7 +398,7 @@ class SimpleTabs extends React.Component {
                     </div>
                     </Grid>
                     <Grid item sm={3} md={3}>
-                    <Button className="link_btn" variant="contained">
+                    <Button title="Match Score" className="link_btn" variant="contained">
                     <Link to={"/score/"+item.unique_id}><span style={{textDecoration:'none',color:"black"}}>Score</span></Link>
                     </Button>
                     </Grid>

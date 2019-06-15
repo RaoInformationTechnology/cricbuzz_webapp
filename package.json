@@ -13,6 +13,7 @@
     "firebase": "^6.0.2",
     "gh-pages": "^2.0.1",
     "google-map-react": "^1.1.4",
+    "hash-router": "^0.4.0",
     "material-components-web": "^2.1.0",
     "material-tabs": "0.0.8",
     "path": "^0.12.7",

@@ -179,7 +179,7 @@ class score extends Component{
 						<table>
 						<tbody>
 							<tr>
-								<td><Link to={"/player/"+team.name}><span style={{textDecoration:'none',color:"black"}}>{teamIndex + 1} - {team.name}</span></Link></td>
+								<td><Link to={"/player/"+team.pid}><span style={{textDecoration:'none',color:"black"}}>{teamIndex + 1} - {team.name}</span></Link></td>
 							</tr>
 						</tbody>
 						</table>
@@ -197,7 +197,7 @@ class score extends Component{
 						<table>
 						<tbody>
 							<tr>
-								<td><Link to={"/player/"+team2.name}><span style={{textDecoration:'none',color:"black"}}>{team2Index + 1} - {team2.name}</span></Link></td>
+								<td><Link to={"/player/"+team2.pid}><span style={{textDecoration:'none',color:"black"}}>{team2Index + 1} - {team2.name}</span></Link></td>
 							</tr>
 						</tbody>
 						</table>

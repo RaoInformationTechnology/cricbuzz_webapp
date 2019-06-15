@@ -43,39 +43,13 @@ class player extends Component{
 	}
 	componentDidMount(){
 		// console.log(this.props.location.pathname);
-		const playerName = this.props.location.pathname.split('/')[2];
+		// const playerName = this.props.location.pathname.split('/')[2];
+		const playerId = this.props.location.pathname.split('/')[2];
 		// console.log("pname:",playerName);
+		// console.log("pid:",playerId);
 
-		if(playerName){
-			fetch("https://cricapi.com/api/playerFinder?apikey=KxFEC7542kcdZoSrfyOH452AoL42&name="+playerName)
-			.then(res => res.json())
-			.then(json =>{
-				// console.log("playerName",playerName);
-				if(!(json.data == '')){
-					this.setState({
-						isLoaded:true,
-						flag:true,
-						player_info:json,
-						pid:json.data[0].pid,
-					})
-
-				}
-				else{
-					Swal.fire({
-						title: 'Name is not valid',
-						type: 'warning',
-					})
-				}
-				// console.log(this.state.player_name);
-				// console.log(this.state.player_info.data);
-				// console.log(this.state.player_info.data[0].pid);
-				// console.log(this.state.pid);
-				this.state.player_name = '';
-				// console.log("player_name",this.state.player_name);
-			})
-			setTimeout(()=>{
-				if(this.state.pid){
-					fetch("https://cricapi.com/api/playerStats?apikey=KxFEC7542kcdZoSrfyOH452AoL42&pid="+this.state.pid)
+		if(playerId){
+					fetch("https://cricapi.com/api/playerStats?apikey=KxFEC7542kcdZoSrfyOH452AoL42&pid="+playerId)
 					.then(res => res.json())
 					.then(json =>{
 						this.setState({
@@ -107,8 +81,70 @@ class player extends Component{
 						// console.log("test_data",this.state.test_dataBow);
 					})
 				}
-			},3000)
-		}
+
+		// if(playerName){
+		// 	fetch("https://cricapi.com/api/playerFinder?apikey=KxFEC7542kcdZoSrfyOH452AoL42&name="+playerName)
+		// 	.then(res => res.json())
+		// 	.then(json =>{
+		// 		// console.log("playerName",playerName);
+		// 		if(!(json.data == '')){
+		// 			this.setState({
+		// 				isLoaded:true,
+		// 				flag:true,
+		// 				player_info:json,
+		// 				pid:json.data[0].pid,
+		// 			})
+
+		// 		}
+		// 		else{
+		// 			Swal.fire({
+		// 				title: 'Name is not valid',
+		// 				type: 'warning',
+		// 			})
+		// 		}
+		// 		// console.log(this.state.player_name);
+		// 		// console.log(this.state.player_info.data);
+		// 		// console.log(this.state.player_info.data[0].pid);
+		// 		// console.log(this.state.pid);
+		// 		this.state.player_name = '';
+		// 		// console.log("player_name",this.state.player_name);
+		// 	})
+		// 	setTimeout(()=>{
+		// 		if(this.state.pid){
+		// 			fetch("https://cricapi.com/api/playerStats?apikey=KxFEC7542kcdZoSrfyOH452AoL42&pid="+this.state.pid)
+		// 			.then(res => res.json())
+		// 			.then(json =>{
+		// 				this.setState({
+		// 					isLoaded:true,
+		// 					player_statistics:json,
+		// 					ODI_data: [json.data.batting.ODIs],
+		// 					T20_data: [json.data.batting.T20Is],
+		// 					firstClass_data: [json.data.batting.firstClass],
+		// 					listA_data: [json.data.batting.listA],
+		// 					test_data: [json.data.batting.tests],
+		// 					ODI_dataBow: [json.data.bowling.ODIs],
+		// 					T20_dataBow: [json.data.bowling.T20Is],
+		// 					firstClass_dataBow: [json.data.bowling.firstClass],
+		// 					listA_dataBow: [json.data.bowling.listA],
+		// 					test_dataBow: [json.data.bowling.tests]
+		// 				})
+		// 				// console.log("player_statistics",this.state.player_statistics);
+
+		// 				// console.log("ODI_data",this.state.ODI_data);
+		// 				// console.log("T20_data",this.state.T20_data);
+		// 				// console.log("firstClass_data",this.state.firstClass_data);
+		// 				// console.log("listA_data",this.state.listA_data);
+		// 				// console.log("test_data",this.state.test_data);
+
+		// 				// console.log("ODI_data",this.state.ODI_dataBow);
+		// 				// console.log("T20_data",this.state.T20_dataBow);
+		// 				// console.log("firstClass_data",this.state.firstClass_dataBow);
+		// 				// console.log("listA_data",this.state.listA_dataBow);
+		// 				// console.log("test_data",this.state.test_dataBow);
+		// 			})
+		// 		}
+		// 	},3000)
+		// }
  	}
 	handleChangeEnd(event){  
       this.setState({
@@ -623,15 +659,15 @@ class player extends Component{
 								<th>6s</th>
 								<th>50</th>
 								<th>100</th>
-								<th>Ave</th>
-								<th>BF</th>
-								<th>Ct</th>
-								<th>Hs</th>
-								<th>Inns</th>
+								<th title="Average">Ave</th>
+								<th title="Ball Faced">BF</th>
+								<th title="Catches">Ct</th>
+								<th title="High Score">Hs</th>
+								<th title="Innings">Inns</th>
 								<th>Mat</th>
-								<th>NO</th>
+								<th title="No Balls">NO</th>
 								<th>Runs</th>
-								<th>SR</th>
+								<th title="Strike Rate">SR</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -650,19 +686,19 @@ class player extends Component{
 						<thead>
 							<tr>
 								<th></th>
-								<th>4w</th>
-								<th>5w</th>
+								<th title="4 Wickets in an innings">4w</th>
+								<th title="5 Wickets in an innings">5w</th>
 								<th>10</th>
-								<th>Ave</th>
-								<th>BBI</th>
-								<th>BBM</th>
+								<th title="Average">Ave</th>
+								<th title="Best Bowling in Innings">BBI</th>
+								<th title="Best Bowling in Match">BBM</th>
 								<th>Balls</th>
-								<th>Econ</th>
+								<th title="Economy rate">Econ</th>
 								<th>Inns</th>
 								<th>Mat</th>
 								<th>Runs</th>
-								<th>SR</th>
-								<th>Wkts</th>
+								<th title="Strike Rate">SR</th>
+								<th title="Wickets">Wkts</th>
 							</tr>
 						</thead>
 						<tbody>

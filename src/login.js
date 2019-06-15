@@ -57,9 +57,12 @@ class Login extends Component {
 
   render() {
     const {email, password,error} = this.state;
+    // localStorage.setItem("email","rajgohel0007@gmail.com");
 
     const responseFacebook = (response) => {
-      // console.log(response);
+      console.log(response);
+      console.log("email:",response.email);
+      localStorage.setItem("email",response.email);
       this.props.history.push("/home");
     }
 
@@ -73,7 +76,7 @@ class Login extends Component {
       <h1>CricBuzz</h1>
       <Button variant="contained" color="primary" >
       <FacebookLogin
-      appId="2379820242265005" //APP ID NOT CREATED YET
+      appId="2500849506601645"
       fields="name,email,picture"
       callback={responseFacebook}
       isMobile={true}

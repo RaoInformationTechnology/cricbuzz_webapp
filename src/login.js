@@ -8,6 +8,8 @@ import { browserHistory } from 'react-router';
 import  home from './home';
 import score from './score';
 import { Container, Flex, Box, Input, Button, Subhead, Text } from 'rebass';
+import auth from "./auth";
+// import propservice from "./propService.js";
 
 import * as firebase from "firebase/app";
 
@@ -30,7 +32,10 @@ class Login extends Component {
       password: '',
       error:null,
     })
+    // propservice.getprop(this.props);    
+
   }
+
   handleInputChange = (event)=>{
     this.setState({[event.target.name]: event.target.value});
   };
@@ -63,7 +68,10 @@ class Login extends Component {
       console.log(response);
       console.log("email:",response.email);
       localStorage.setItem("email",response.email);
-      this.props.history.push("/home");
+      // this.props.history.push("/home");
+      auth.login(() => {
+        this.props.history.push("/app");
+      });
     }
 
     const responseGoogle = (response) => {

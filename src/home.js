@@ -99,8 +99,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import auth from "./auth";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import  propservice from "./propService.js";
+// import  propservice from "./propService.js";
 
 import AOS from 'aos';
 
@@ -161,7 +162,7 @@ class SimpleTabs extends React.Component {
   }
   componentDidMount(){
       // console.log("data of live score");
-      propservice.getprop(this.props);
+      // propservice.getprop(this.props);
       fetch("https://cricapi.com/api/cricket?apikey=KxFEC7542kcdZoSrfyOH452AoL42")
       .then(res => res.json())
       .then(json =>{
@@ -261,7 +262,8 @@ class SimpleTabs extends React.Component {
 
     logout(){
       console.log("logout1");
-      localStorage.removeItem("email");
+      // localStorage.removeItem("email");
+      this.props.history.push("/");
       console.log("logout2");
     }
 
@@ -269,6 +271,7 @@ class SimpleTabs extends React.Component {
     // let display_data;
     const { classes } = this.props;
     const { match,future_series,match_by_day,value,score,isLoaded } = this.state;
+    // console.log("privious locaion",window.location);
     // console.log("live_match",match);
     // console.log("future_series",future_series);
     // console.log("match_by_day",match_by_day);

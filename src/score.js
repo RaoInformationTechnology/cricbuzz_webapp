@@ -7,6 +7,7 @@ import home from './home';
 import player from './player';
 import Button from '@material-ui/core/Button';
 import loader from './loader.gif';
+// import  propservice from "./propService.js";
 import './score.css';
 import AOS from 'aos';
 
@@ -22,6 +23,7 @@ class score extends Component{
 			stateTeam2:[],
 			isLoaded: false,
 		}
+		// propservice.getprop(this.props);    		
 	}
 	componentDidMount(){
 		// console.log(this.props.location.pathname, typeof this.props.location.pathname);

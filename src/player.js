@@ -15,6 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import loader from './loader.gif';
 import background from './player_bg1.jpg';
 import Swal from 'sweetalert2';
+// import  propservice from "./propService.js";
 import AOS from 'aos';
 
 class player extends Component{
@@ -40,6 +41,7 @@ class player extends Component{
 		}
 		this.handleChangeEnd = this.handleChangeEnd.bind(this);
 		this.handleClick = this.handleClick.bind(this);
+		// propservice.getprop(this.props);    		
 	}
 	componentDidMount(){
 		// console.log(this.props.location.pathname);

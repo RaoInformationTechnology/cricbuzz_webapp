@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Router, Route, Switch } from 'react-router-dom';
 // import { HashRouter,Link,Route } from 'react-router-dom';
@@ -12,6 +12,7 @@ import score from './score.js';
 import home from './home.js';
 import { ProtectedRoute } from "./protected.route";
 import PropTypes from 'prop-types';
+import { Certificate } from 'crypto';
 // import futureSeries from './futureSeries';
 
 // import  firebase from './firebase';
@@ -46,6 +47,24 @@ import PropTypes from 'prop-types';
 // 	)
 // }
 
+function App() {
+	return (
+	  <div className="App">
+		<Switch>
+				<Route exact path="/" component={login}/>
+				<ProtectedRoute exact path="/home" component={home} />
+				<ProtectedRoute exact path="/player" component={player} />
+				<ProtectedRoute exact path="/score/:mid" component={score} />
+				<ProtectedRoute exact path="/player/:pid" component={player} />
+				<Route path="*" component={() => 
+				<html>
+					<h1><center>404 PAGE NOT FOUND</center></h1>
+				</html>} />
+		</Switch>
+	  </div>
+	);
+  }
+
 ReactDOM.render(
 	// <Router>
 	// <div>
@@ -70,17 +89,21 @@ ReactDOM.render(
 		// 		)} />
 		// </HashRouter>
 		// </div>,
-		<div>
+		// <div>
+		// <BrowserRouter>
+		// 	<Switch>
+		// 		<Route exact path="/" component={login}/>
+		// 		<ProtectedRoute exact path="/home" component={home} />
+		// 		<ProtectedRoute exact path="/player" component={player} />
+		// 		<ProtectedRoute exact path="/score/:mid" component={score} />
+		// 		<ProtectedRoute exact path="/player/:pid" component={player} />
+		// 		<Route path="*" component={() => "404 NOT FOUND"} />
+		// 	</Switch>
+		// </BrowserRouter>
+		// </div>,
 		<BrowserRouter>
-			<Switch>
-				<Route exact path="/" component={login}/>
-				<ProtectedRoute exact path="/home" component={home} />
-				<ProtectedRoute exact path="/player" component={player} />
-				<ProtectedRoute exact path="/score" component={score} />
-				<Route path="*" component={() => "404 NOT FOUND"} />
-			</Switch>
-		</BrowserRouter>
-		</div>,
+			<App />
+		</BrowserRouter>,
 	 document.getElementById('root')
 	 );
 

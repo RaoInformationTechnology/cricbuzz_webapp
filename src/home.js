@@ -1,81 +1,3 @@
-// import React,{Component} from 'react';
-// import * as mdc from 'material-components-web';
-// import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-// import './home.css';
-// import  home from './home';
-// import score from './score';
-// import AppBar from '@material-ui/core/AppBar';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
-// import Typography from '@material-ui/core/Typography';
-
-// class Home extends Component{
-// 	constructor(props){
-// 		super(props);
-// 		this.state = {
-// 			match: [],
-// 			isLoaded: false,
-// 		}
-// 	}
-// 	componentDidMount(){
-// 		console.log("data of live score");
-// 		fetch("https://cricapi.com/api/cricket?apikey=VuyDMPX3CHOT2xGg9Aqk1PyVqRm1")
-// 		.then(res => res.json())
-// 		.then(json =>{
-// 			this.setState({
-// 				isLoaded: true,
-// 				match: json.data,
-// 			})
-// 		})
-// 	}
-// 	render(){
-// 		const {isLoaded,match} = this.state;
-// 		console.log("matches of that day",match);
-// 		if(!isLoaded){
-// 			return (<div>Loading.........</div>)
-// 		}else if (match && match.length>0){
-// 			return(
-// 				// Header
-// 				<div className="header" >
-// 				<h1>Cricbuzz Web_Application</h1>
-// 				<div className="mdc-layout-grid">
-// 				<div className="mdc-layout-grid__inner" >
-// 				{match.map(item=>{
-
-// 					return <div className="mdc-layout-grid__cell--span-3"
-// 					style={{opacity: 1, transform:`translate3d(0,0px,0)`}}
-// 					ref={ref => this.cardRef = ref}
-// 					id={item.unique_id}
-// 					key={item.unique_id}>
-// 					<div className="card">
-// 					<div className='mdc-card__primary-action ripple'>
-// 					<div className="information">
-// 					<div className="value">{item.title}</div>
-// 					<div className="mdc-button__label">{item.description}</div>
-// 					</div>
-// 					</div>
-// 					</div>
-// 					</div>
-
-// 				})}
-// 				</div>
-// 				</div>
-// 				<button>
-// 				<Link to="/score">Live Updates</Link>
-// 				</button>
-// 				</div>
-// 				)
-
-// 		}else{
-// 			return (<div>Loading.........</div>);
-		
-// 		}
-
-// 	}
-
-// }
-// export default Home;
-
 import React,{Component} from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import './home.css';
@@ -146,6 +68,7 @@ class SimpleTabs extends React.Component {
   };
   constructor(props){
       super(props);
+      // console.log("props:",this.props);
       // var today = new Date(),
       // date = moment(today).format("YYYY/MM/DD");
       this.state = {
@@ -158,6 +81,7 @@ class SimpleTabs extends React.Component {
           stateTitle:[],
           value: 0,
           isLoaded: false,
+          fireRedirect: false
       }
   }
   componentDidMount(){
@@ -229,48 +153,10 @@ class SimpleTabs extends React.Component {
     //   )
     // }
 
-    // formatDate(date) {
-    //                 var d = new Date(date);
-    //                 var hh = d.getHours();
-    //                 var m = d.getMinutes();
-    //                 var s = d.getSeconds();
-    //                 var dd = "AM";
-    //                 var h = hh;
-    //                 if (h >= 12) {
-    //                   h = hh - 12;
-    //                   dd = "PM";
-    //                 }
-    //                 if (h == 0) {
-    //                   h = 12;
-    //                 }
-    //                 m = m < 10 ? "0" + m : m;
-
-    //                 s = s < 10 ? "0" + s : s;
-
-    //                    // if you want 2 digit hours:
-    //                   // h = h<10?"0"+h:h; 
-
-    //                   var pattern = new RegExp("0?" + hh + ":" + m + ":" + s);
-
-    //                   var replacement = h + ":" + m;
-    //                   /* if you want to add seconds
-    //                   replacement += ":"+s;  */
-    //                   replacement += " " + dd;
-
-    //                   return date.replace(pattern, replacement);
-    //                 }
-
-    logout(){
-      console.log("logout1");
-      // localStorage.removeItem("email");
-      this.props.history.push("/");
-      console.log("logout2");
-    }
-
   render() {
     // let display_data;
     const { classes } = this.props;
-    const { match,future_series,match_by_day,value,score,isLoaded } = this.state;
+    const { match,future_series,match_by_day,value,score,isLoaded,fireRedirect } = this.state;
     // console.log("privious locaion",window.location);
     // console.log("live_match",match);
     // console.log("future_series",future_series);
@@ -281,9 +167,9 @@ class SimpleTabs extends React.Component {
       return(
       <div><img className="load" src={loader}></img></div>
       )
-    }
-
-    else if(isLoaded ){
+    }else if(fireRedirect){
+      window.location.href = '/'
+    }else if(isLoaded){
     return (
       <Grid container spacing={12}>
     	<div className="main_container">
@@ -295,8 +181,17 @@ class SimpleTabs extends React.Component {
       <Button title="Find Player" variant="contained" color="primary" className="players_btn">
       <Link to={"/player"}><span style={{textDecoration:'none'}}>Players</span></Link>
       </Button>
-      <Button variant="contained" className="player_btn" onClick={this.logout}>
-      <Link to={"/"}><span style={{textDecoration:'none',color:"black"}}>Logout</span></Link>
+      <Button variant="contained" className="player_btn" onClick={() => {
+        console.log("logout1");
+        // console.log("props:",this.props);
+        localStorage.removeItem("email");
+        this.setState({ fireRedirect: true });
+        // auth.logout(() => {
+        //   this.props.history.push("/");
+        // });
+        console.log("logout2");
+      }}>
+      Logout
       </Button>
       </Grid>
       </div>
@@ -437,8 +332,7 @@ class SimpleTabs extends React.Component {
       </div>
       </Grid>
     );
-    }
-    else{
+    }else{
       return(
         <div>
           <center><h1>Sorry No Data Found</h1></center>

@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { browserHistory } from 'react-router';
-import  home from './home';
 import score from './score';
 import { Container, Flex, Box, Input, Button, Subhead, Text } from 'rebass';
 import auth from "./auth";
+import Home from './home.js';
 // import propservice from "./propService.js";
 
 import * as firebase from "firebase/app";
@@ -31,6 +31,7 @@ class Login extends Component {
       email : '',
       password: '',
       error:null,
+      emailLocal:  localStorage.getItem('email')
     })
     // propservice.getprop(this.props);    
 
@@ -61,48 +62,61 @@ class Login extends Component {
     }
 
   render() {
-    const {email, password,error} = this.state;
+    console.log("email local",this.state.emailLocal);
+    const {email, password, error, emailLocal} = this.state;
     // localStorage.setItem("email","rajgohel0007@gmail.com");
 
     const responseFacebook = (response) => {
-      console.log(response);
-      console.log("email:",response.email);
+      // console.log(response);
+      // console.log("email:",response.email);
+      // localStorage.setItem("email","rajgohel0007@gmail.com");
       localStorage.setItem("email",response.email);
       // this.props.history.push("/home");
       auth.login(() => {
-        this.props.history.push("/app");
+        this.props.history.push("/home");
       });
     }
 
     const responseGoogle = (response) => {
       // console.log("response of google account",response);
     }
-    return (
-      <div>
-      <div className="bg_class">
-      <div className="login">
-      <h1>CricBuzz</h1>
-      <Button variant="contained" color="primary" >
-      <FacebookLogin
-      appId="2500849506601645"
-      fields="name,email,picture"
-      callback={responseFacebook}
-      isMobile={true}
-      />
-      </Button>
-      </div>
-      </div>
-      </div>
-      // {
-      //   // <GoogleLogin
-      //   //     clientId="251915039472-da65k39nm5kgjqm1riqiujed3bj9jn7v.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
-      //   //     buttonText="LOGIN WITH GOOGLE"
-      //   //     onSuccess={responseGoogle}
-      //   //     onFailure={responseGoogle}
-      //   //     />
-      //     }
-      // </div>
-      );
+
+    if(!emailLocal){
+      return (
+        <div>
+        <div className="bg_class">
+        <div className="login">
+        <h1>CricBuzz</h1>
+        <Button variant="contained" color="primary" >
+        <FacebookLogin
+        appId="2500849506601645"
+        fields="name,email,picture"
+        callback={responseFacebook}
+        isMobile={true}
+        />
+        </Button>
+        {/* <Button onClick={responseFacebook}>Click Me</Button> */}
+        </div>
+        </div>
+        </div>
+        // {
+        //   // <GoogleLogin
+        //   //     clientId="251915039472-da65k39nm5kgjqm1riqiujed3bj9jn7v.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+        //   //     buttonText="LOGIN WITH GOOGLE"
+        //   //     onSuccess={responseGoogle}
+        //   //     onFailure={responseGoogle}
+        //   //     />
+        //     }
+        // </div>
+        );
+    }else{
+      return(
+        <div>
+          <Home />
+        </div>
+      )
+    }
+    
   }
 }
 

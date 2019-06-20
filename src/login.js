@@ -1,16 +1,11 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
 import { browserHistory } from 'react-router';
-import score from './score';
 import { Container, Flex, Box, Input, Button, Subhead, Text } from 'rebass';
 import auth from "./auth";
 import Home from './home.js';
-// import propservice from "./propService.js";
-
 import * as firebase from "firebase/app";
 
 // Add the Firebase products that you want to use
@@ -24,52 +19,51 @@ import "firebase/firestore";
 var provider = new firebase.auth.FacebookAuthProvider();
 class Login extends Component {
 
-  constructor(props){
+  constructor(props) {
 
     super(props);
     this.state = ({
-      email : '',
+      email: '',
       password: '',
-      error:null,
-      emailLocal:  localStorage.getItem('email')
+      error: null,
+      emailLocal: localStorage.getItem('email')
     })
-    // propservice.getprop(this.props);    
-
   }
 
-  handleInputChange = (event)=>{
-    this.setState({[event.target.name]: event.target.value});
+  handleInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   };
-    handleSubmit = (event)=>{
-      // console.log("Method called!!!!!!!!!!!!!");
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        // console.log(result);
-        // ...
-      }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
-    }
+  
+  handleSubmit = (event) => {
+    // console.log("Method called!!!!!!!!!!!!!");
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // console.log(result);
+      // ...
+    }).catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+  }
 
   render() {
-    console.log("email local",this.state.emailLocal);
-    const {email, password, error, emailLocal} = this.state;
+    // console.log("email local", this.state.emailLocal);
+    const { email, password, error, emailLocal } = this.state;
     // localStorage.setItem("email","rajgohel0007@gmail.com");
 
     const responseFacebook = (response) => {
       // console.log(response);
       // console.log("email:",response.email);
-      // localStorage.setItem("email","rajgohel0007@gmail.com");
+      // localStorage.setItem("email", "rajgohel0007@gmail.com");
       localStorage.setItem("email",response.email);
       // this.props.history.push("/home");
       auth.login(() => {
@@ -77,46 +71,33 @@ class Login extends Component {
       });
     }
 
-    const responseGoogle = (response) => {
-      // console.log("response of google account",response);
-    }
-
-    if(!emailLocal){
+    if (!emailLocal) {
       return (
         <div>
-        <div className="bg_class">
-        <div className="login">
-        <h1>CricBuzz</h1>
-        <Button variant="contained" color="primary" >
-        <FacebookLogin
-        appId="2500849506601645"
-        fields="name,email,picture"
-        callback={responseFacebook}
-        isMobile={true}
-        />
-        </Button>
-        {/* <Button onClick={responseFacebook}>Click Me</Button> */}
+          <div className="bg_class">
+            <div className="login">
+              <h1>CricBuzz</h1>
+              <Button variant="contained" color="primary" >
+              <FacebookLogin
+              appId="2500849506601645"
+              fields="name,email,picture"
+              callback={responseFacebook}
+              isMobile={true}
+              />
+              </Button>
+              {/* <Button onClick={responseFacebook}>Log in</Button> */}
+            </div>
+          </div>
         </div>
-        </div>
-        </div>
-        // {
-        //   // <GoogleLogin
-        //   //     clientId="251915039472-da65k39nm5kgjqm1riqiujed3bj9jn7v.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
-        //   //     buttonText="LOGIN WITH GOOGLE"
-        //   //     onSuccess={responseGoogle}
-        //   //     onFailure={responseGoogle}
-        //   //     />
-        //     }
-        // </div>
-        );
-    }else{
-      return(
+      );
+    } else {
+      return (
         <div>
           <Home />
         </div>
       )
     }
-    
+
   }
 }
 

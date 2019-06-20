@@ -1,21 +1,16 @@
 import React,{Component} from 'react';
-import * as mdc from 'material-components-web';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import './player.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import loader from './loader.gif';
 import background from './player_bg1.jpg';
 import Swal from 'sweetalert2';
-// import  propservice from "./propService.js";
 import AOS from 'aos';
 
 class player extends Component{
@@ -41,7 +36,6 @@ class player extends Component{
 		}
 		this.handleChangeEnd = this.handleChangeEnd.bind(this);
 		this.handleClick = this.handleClick.bind(this);
-		// propservice.getprop(this.props);    		
 	}
 	componentDidMount(){
 		// console.log(this.props.location.pathname);
@@ -51,103 +45,41 @@ class player extends Component{
 		// console.log("pid:",playerId);
 
 		if(playerId){
-					fetch("https://cricapi.com/api/playerStats?apikey=KxFEC7542kcdZoSrfyOH452AoL42&pid="+playerId)
-					.then(res => res.json())
-					.then(json =>{
-						this.setState({
-							isLoaded:true,
-							player_statistics:json,
-							ODI_data: [json.data.batting.ODIs],
-							T20_data: [json.data.batting.T20Is],
-							firstClass_data: [json.data.batting.firstClass],
-							listA_data: [json.data.batting.listA],
-							test_data: [json.data.batting.tests],
-							ODI_dataBow: [json.data.bowling.ODIs],
-							T20_dataBow: [json.data.bowling.T20Is],
-							firstClass_dataBow: [json.data.bowling.firstClass],
-							listA_dataBow: [json.data.bowling.listA],
-							test_dataBow: [json.data.bowling.tests]
-						})
-						// console.log("player_statistics",this.state.player_statistics);
-
-						// console.log("ODI_data",this.state.ODI_data);
-						// console.log("T20_data",this.state.T20_data);
-						// console.log("firstClass_data",this.state.firstClass_data);
-						// console.log("listA_data",this.state.listA_data);
-						// console.log("test_data",this.state.test_data);
-
-						// console.log("ODI_data",this.state.ODI_dataBow);
-						// console.log("T20_data",this.state.T20_dataBow);
-						// console.log("firstClass_data",this.state.firstClass_dataBow);
-						// console.log("listA_data",this.state.listA_dataBow);
-						// console.log("test_data",this.state.test_dataBow);
+			fetch("https://cricapi.com/api/playerStats?apikey=35xllyx5K7bMzc5qcuas7W6Uzml2&pid="+playerId)
+			.then(res => res.json())
+			.then(json =>{
+					this.setState({
+						isLoaded:true,
+						player_statistics:json,
+						ODI_data: [json.data.batting.ODIs],
+						T20_data: [json.data.batting.T20Is],
+						firstClass_data: [json.data.batting.firstClass],
+						listA_data: [json.data.batting.listA],
+						test_data: [json.data.batting.tests],
+						ODI_dataBow: [json.data.bowling.ODIs],
+						T20_dataBow: [json.data.bowling.T20Is],
+						firstClass_dataBow: [json.data.bowling.firstClass],
+						listA_dataBow: [json.data.bowling.listA],
+						test_dataBow: [json.data.bowling.tests]
 					})
+					// console.log("player_statistics",this.state.player_statistics);
+
+					// console.log("ODI_data",this.state.ODI_data);
+					// console.log("T20_data",this.state.T20_data);
+					// console.log("firstClass_data",this.state.firstClass_data);
+					// console.log("listA_data",this.state.listA_data);
+					// console.log("test_data",this.state.test_data);
+
+					// console.log("ODI_data",this.state.ODI_dataBow);
+					// console.log("T20_data",this.state.T20_dataBow);
+					// console.log("firstClass_data",this.state.firstClass_dataBow);
+					// console.log("listA_data",this.state.listA_dataBow);
+					// console.log("test_data",this.state.test_dataBow);
 				}
-
-		// if(playerName){
-		// 	fetch("https://cricapi.com/api/playerFinder?apikey=KxFEC7542kcdZoSrfyOH452AoL42&name="+playerName)
-		// 	.then(res => res.json())
-		// 	.then(json =>{
-		// 		// console.log("playerName",playerName);
-		// 		if(!(json.data == '')){
-		// 			this.setState({
-		// 				isLoaded:true,
-		// 				flag:true,
-		// 				player_info:json,
-		// 				pid:json.data[0].pid,
-		// 			})
-
-		// 		}
-		// 		else{
-		// 			Swal.fire({
-		// 				title: 'Name is not valid',
-		// 				type: 'warning',
-		// 			})
-		// 		}
-		// 		// console.log(this.state.player_name);
-		// 		// console.log(this.state.player_info.data);
-		// 		// console.log(this.state.player_info.data[0].pid);
-		// 		// console.log(this.state.pid);
-		// 		this.state.player_name = '';
-		// 		// console.log("player_name",this.state.player_name);
-		// 	})
-		// 	setTimeout(()=>{
-		// 		if(this.state.pid){
-		// 			fetch("https://cricapi.com/api/playerStats?apikey=KxFEC7542kcdZoSrfyOH452AoL42&pid="+this.state.pid)
-		// 			.then(res => res.json())
-		// 			.then(json =>{
-		// 				this.setState({
-		// 					isLoaded:true,
-		// 					player_statistics:json,
-		// 					ODI_data: [json.data.batting.ODIs],
-		// 					T20_data: [json.data.batting.T20Is],
-		// 					firstClass_data: [json.data.batting.firstClass],
-		// 					listA_data: [json.data.batting.listA],
-		// 					test_data: [json.data.batting.tests],
-		// 					ODI_dataBow: [json.data.bowling.ODIs],
-		// 					T20_dataBow: [json.data.bowling.T20Is],
-		// 					firstClass_dataBow: [json.data.bowling.firstClass],
-		// 					listA_dataBow: [json.data.bowling.listA],
-		// 					test_dataBow: [json.data.bowling.tests]
-		// 				})
-		// 				// console.log("player_statistics",this.state.player_statistics);
-
-		// 				// console.log("ODI_data",this.state.ODI_data);
-		// 				// console.log("T20_data",this.state.T20_data);
-		// 				// console.log("firstClass_data",this.state.firstClass_data);
-		// 				// console.log("listA_data",this.state.listA_data);
-		// 				// console.log("test_data",this.state.test_data);
-
-		// 				// console.log("ODI_data",this.state.ODI_dataBow);
-		// 				// console.log("T20_data",this.state.T20_dataBow);
-		// 				// console.log("firstClass_data",this.state.firstClass_dataBow);
-		// 				// console.log("listA_data",this.state.listA_dataBow);
-		// 				// console.log("test_data",this.state.test_dataBow);
-		// 			})
-		// 		}
-		// 	},3000)
-		// }
- 	}
+			)
+		}
+	 }
+	 
 	handleChangeEnd(event){  
       this.setState({
       	player_name: event.target.value
@@ -162,39 +94,36 @@ class player extends Component{
     			title: 'Please Enter name',
     			type: 'warning',
     		})
-    	}
-    	else if(this.state.player_name && pattern.test(this.state.player_name)){
-    	this.setState({player_statistics:''});
-    	// console.log("state data",this.state.player_statistics);
-    	fetch("https://cricapi.com/api/playerFinder?apikey=KxFEC7542kcdZoSrfyOH452AoL42&name="+this.state.player_name)
-		.then(res => res.json())
-		.then(json =>{
-			if(!(json.data == '')){
-				this.setState({
-					isLoaded:true,
-					flag:true,
-					player_info:json,
-					pid:json.data[0].pid
-				})
-			}
-			else{
-				Swal.fire({
-					title: 'Name is not valid',
-					type: 'warning',
-				})
-			}
-			// console.log(this.state.player_name);
-			// console.log(this.state.player_info.data);
-			// console.log(this.state.player_info.data[0].pid);
-			// console.log(this.state.pid);
-			this.state.player_name = '';
-			// console.log("player_name",this.state.player_name);
-		})
-		
+    	} else if (this.state.player_name && pattern.test(this.state.player_name)) {
+    		this.setState({player_statistics:''});
+    		// console.log("state data",this.state.player_statistics);
+    		fetch("https://cricapi.com/api/playerFinder?apikey=35xllyx5K7bMzc5qcuas7W6Uzml2&name="+this.state.player_name)
+			.then(res => res.json())
+			.then(json =>{
+				if(!(json.data == '')){
+					this.setState({
+						isLoaded:true,
+						flag:true,
+						player_info:json,
+						pid:json.data[0].pid
+					})
+				} else {
+					Swal.fire({
+						title: 'Name is not valid',
+						type: 'warning',
+					})
+				}
+				// console.log(this.state.player_name);
+				// console.log(this.state.player_info.data);
+				// console.log(this.state.player_info.data[0].pid);
+				// console.log(this.state.pid);
+				this.state.player_name = '';
+				// console.log("player_name",this.state.player_name);
+			})		
 		setTimeout(()=>{
 			if(this.state.pid){
 				// console.log("player info",this.state.player_info.data);
-				fetch("https://cricapi.com/api/playerStats?apikey=KxFEC7542kcdZoSrfyOH452AoL42&pid="+this.state.pid)
+				fetch("https://cricapi.com/api/playerStats?apikey=35xllyx5K7bMzc5qcuas7W6Uzml2&pid="+this.state.pid)
 				.then(res => res.json())
 				.then(json =>{
 					this.setState({
@@ -227,17 +156,14 @@ class player extends Component{
 				})
 			}
 		},3000)
-	}
-	else if(!(pattern.test(this.state.player_name))){
-		Swal.fire({
-          title: 'Name is not valid',
-          type: 'warning',
-        })
+		} else if (!(pattern.test(this.state.player_name))) {
+			Swal.fire({
+			title: 'Name is not valid',
+			type: 'warning',
+			})
+		}	
 	}
 	
-    }
-
-
 		render(){
 		const { isLoaded,player_info,player_statistics } = this.state;
 		// console.log("player_info",player_info);
@@ -486,267 +412,216 @@ class player extends Component{
 		if(!isLoaded && !player_statistics){	
 			return (
 				<Grid container spacing={12}>
-				<div data-aos="flip-left" className="player_search">
-				<Card className="card_search">
-				<CardContent className="cardText">
-				<TextField
-				className="standard-name"
-				variant="outlined"
-				label="Player Name"
-				onChange={this.handleChangeEnd}
-				margin="normal"
-				/>
-				<Button style={{marginLeft:11,marginTop:9}} variant="contained" color="primary" onClick={this.handleClick}>
-				Search
-				</Button>
-				</CardContent>
-				</Card>
-				<div className="imageClass">
-				<img src={background} style={{height:300,width:280,marginTop:3}}></img>
-				</div>
-				</div>
-				</Grid>
-				)
-		}
-		else if(!player_statistics){
-			return(
-				<div><img className="load" src={loader}></img></div>
-				)
-		}
-		else if(isLoaded && player_statistics.fullName){
-			// let ODIdata = if(player_statistics.data.batting.ODIs){
-			// 		// console.log("ODI data");
-			// 		return(
-			// 		<table>
-			// 			<thead>
-			// 				<tr>
-			// 					<th>4s</th>
-			// 					<th>6s</th>
-			// 					<th>50</th>
-			// 					<th>100</th>
-			// 					<th>Ave</th>
-			// 					<th>BF</th>
-			// 					<th>Ct</th>
-			// 					<th>Hs</th>
-			// 					<th>Inns</th>
-			// 					<th>Mat</th>
-			// 					<th>NO</th>
-			// 					<th>Runs</th>
-			// 					<th>SR</th>
-			// 				</tr>
-			// 			</thead>
-			// 			<tbody>
-			// 				<tr>
-			// 				<th>4s</th>
-			// 					<td>player_statistics.data.batting.ODIs["6s"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["50"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["100"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["Ave"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["BF"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["Ct"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["Hs"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["Inns"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["Mat"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["NO"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["Runs"]</td>
-			// 					<td>player_statistics.data.batting.ODIs["SR"]</td>
-			// 				</tr>
-			// 			</tbody>
-			// 		</table>
-			// 		)
-			// 	}
-			return(
-				<Grid container spacing={12}>
-				<div data-aos="flip-left" className="player_search">
-				<Card className="card_search">
-				<CardContent>
-				<TextField
-				className="standard-name"
-				variant="outlined"
-				label="Player Name"
-				onChange={this.handleChangeEnd}
-				margin="normal"
-				/>
-				<Button style={{marginLeft:5,marginTop:7}} variant="contained" color="primary" onClick={this.handleClick}>
-				Search
-				</Button>
-				</CardContent>
-				</Card>
-				</div>
-				<Card className="cardDetails">
-				<Grid container spacing={12}>
-				<Grid data-aos="zoom-in" item md={3} >
-				<img src={player_statistics.imageURL} width="100%"></img>
-				</Grid>
-				<Grid data-aos="fade-up" item md={9} >
-				<CardContent>
-				<Typography gutterBottom variant="h5" component="h2">
-				<span className="font_name">{player_statistics.fullName}</span>
-				</Typography>
-
-				<Grid container spacing={12}>
-
-				<Grid item sm={3} xs={12}>
-				<span className="font_heading">Born</span>
-				</Grid>
-				<Grid item sm={9} xs={12} className="playerrow">
-				{player_statistics.born}
-				</Grid>
-				<Divider/>
-
-				<Grid item sm={3} xs={12}>
-				<span className="font_heading">Country</span>
-				</Grid>
-				<Grid item sm={9} xs={12} className="playerrow">
-				{player_statistics.country}
-				</Grid>
-				<Divider />
-
-				<Grid item sm={3} xs={12}>
-				<span className="font_heading">Age</span>
-				</Grid>
-				<Grid item sm={9} xs={12} className="playerrow">
-				{player_statistics.currentAge}
-				</Grid>
-				<Divider />
-
-				<Grid item sm={3} xs={12}>
-				<span className="font_heading">Batting Style</span>
-				</Grid>
-				<Grid item sm={9} xs={12} className="playerrow">
-				{player_statistics.battingStyle}
-				</Grid>
-				<Divider />
-
-				<Grid item sm={3} xs={12}>
-				<span className="font_heading">Bowling Style</span>
-				</Grid>
-				<Grid item sm={9} xs={12} className="playerrow">
-				{player_statistics.bowlingStyle}
-				</Grid>
-				<Divider />
-
-				<Grid item sm={3} xs={12}>
-				<span className="font_heading">Player Role</span>
-				</Grid>
-				<Grid item sm={9} xs={12} className="playerrow">
-				{player_statistics.playingRole}
-				</Grid>
-				<Divider />
-
-				<Grid item sm={3} xs={12}>
-				<span className="font_heading">Teams</span>
-				</Grid>
-				<Grid item sm={9} xs={12} className="playerrow">
-				{player_statistics.majorTeams}
-				</Grid>
-				<Divider/>
-				</Grid>
-
-				</CardContent>
-				</Grid>
-				<Grid data-aos="fade-up" item sm={12}>
-				<Typography variant="body2" style={{textAlign:'justify',color: '#000',marginTop:10, marginBottom: 10, lineHeight:2, fontSize: 16}} color="textSecondary" component="p">
-				{player_statistics.profile}
-				</Typography>
-				</Grid>
-				<Grid data-aos="fade-up" item sm={12} xs={12}>
-				<div><h2>Batting Career Summary</h2></div>
-					<div className="scoreTable">
-					<table>
-						<thead>
-							<tr>
-								<th></th>
-								<th>4s</th>
-								<th>6s</th>
-								<th>50</th>
-								<th>100</th>
-								<th title="Average">Ave</th>
-								<th title="Ball Faced">BF</th>
-								<th title="Catches">Ct</th>
-								<th title="High Score">Hs</th>
-								<th title="Innings">Inns</th>
-								<th>Mat</th>
-								<th title="No Balls">NO</th>
-								<th>Runs</th>
-								<th title="Strike Rate">SR</th>
-							</tr>
-						</thead>
-						<tbody>
-						{displayODI ? displayODI : <tr><td colSpan="14">Not Played any ODI Matches</td></tr>}
-						{displayT20 ? displayT20 : <tr><td colSpan="14">Not Played any T20 Matches</td></tr>}
-						{displayfirstClass ? displayfirstClass : <tr><td colSpan="14">Not Played any Firstclass Matches</td></tr>}
-						{displayListA ? displayListA : <tr><td colSpan="14">Not Played any List-A Matches</td></tr>}
-						{displayTests ? displayTests : <tr><td colSpan="14">Not Played any Test Matches</td></tr>}
-						</tbody>
-					</table>
-					</div>
-
-				 <div><h2>Bowling Career Summary</h2></div>
-					<div className="scoreTable">
-					<table>
-						<thead>
-							<tr>
-								<th></th>
-								<th title="4 Wickets in an innings">4w</th>
-								<th title="5 Wickets in an innings">5w</th>
-								<th>10</th>
-								<th title="Average">Ave</th>
-								<th title="Best Bowling in Innings">BBI</th>
-								<th title="Best Bowling in Match">BBM</th>
-								<th>Balls</th>
-								<th title="Economy rate">Econ</th>
-								<th>Inns</th>
-								<th>Mat</th>
-								<th>Runs</th>
-								<th title="Strike Rate">SR</th>
-								<th title="Wickets">Wkts</th>
-							</tr>
-						</thead>
-						<tbody>
-							{displayODIBow ? displayODIBow : <tr><td colSpan="14">Not Played any ODI Matches</td></tr>}
-							{displayT20Bow ? displayT20Bow : <tr><td colSpan="14">Not Played any T20 Matches</td></tr>}
-							{displayfirstClassBow ? displayfirstClassBow : <tr><td colSpan="14">Not Played any Firstclass Matches</td></tr>}
-							{displayListABow ? displayListABow : <tr><td colSpan="14">Not Played any List-A Matches</td></tr>}
-							{displayTestsBow ? displayTestsBow : <tr><td colSpan="14">Not Played any Test Matches</td></tr>}
-						</tbody>
-					</table>
+					<div data-aos="flip-left" className="player_search">
+						<Card className="card_search">
+							<CardContent className="cardText">
+								<TextField
+								className="standard-name"
+								variant="outlined"
+								label="Player Name"
+								onChange={this.handleChangeEnd}
+								margin="normal"
+								/>
+								<Button style={{marginLeft:11,marginTop:9}} variant="contained" color="primary" onClick={this.handleClick}>
+									Search
+								</Button>
+							</CardContent>
+						</Card>
+						<div className="imageClass">
+							<img src={background} style={{height:300,width:280,marginTop:3}}></img>
+						</div>
 					</div>
 				</Grid>
-				</Grid>
-				<Button variant="contained" color="primary" style={{marginTop:10}}>
-				<Link to={"/home"}><span>Back</span></Link>
-				</Button>
-				</Card>
+				)
+		} else if(!player_statistics) {
+			return(
+				<div>
+					<img alt="" className="load" src={loader}></img>
+				</div>
+			)
+		} else if(isLoaded && player_statistics.fullName) {
+			return(
+				<Grid container spacing={12}>
+					<div data-aos="flip-left" className="player_search">
+						<Card className="card_search">
+							<CardContent>
+								<TextField
+								className="standard-name"
+								variant="outlined"
+								label="Player Name"
+								onChange={this.handleChangeEnd}
+								margin="normal"
+								/>
+								<Button style={{marginLeft:5,marginTop:7}} variant="contained" color="primary" onClick={this.handleClick}>
+									Search
+								</Button>
+							</CardContent>
+						</Card>
+					</div>
+					<Card className="cardDetails">
+						<Grid container spacing={12}>
+							<Grid data-aos="zoom-in" item md={3} >
+								<img src={player_statistics.imageURL} width="100%"></img>
+							</Grid>
+							<Grid data-aos="fade-up" item md={9} >
+							<CardContent>
+								<Typography gutterBottom variant="h5" component="h2">
+								<span className="font_name">{player_statistics.fullName}</span>
+								</Typography>
+								<Grid container spacing={12}>
+									<Grid item sm={3} xs={12}>
+										<span className="font_heading">Born</span>
+									</Grid>
+									<Grid item sm={9} xs={12} className="playerrow">
+										player_statistics.born}
+									</Grid>
+									<Divider/>
+									<Grid item sm={3} xs={12}>
+										<span className="font_heading">Country</span>
+									</Grid>
+									<Grid item sm={9} xs={12} className="playerrow">
+										{player_statistics.country}
+									</Grid>
+									<Divider />
+									<Grid item sm={3} xs={12}>
+										<span className="font_heading">Age</span>
+									</Grid>
+									<Grid item sm={9} xs={12} className="playerrow">
+										{player_statistics.currentAge}
+									</Grid>
+									<Divider />
+									<Grid item sm={3} xs={12}>
+										<span className="font_heading">Batting Style</span>
+									</Grid>
+									<Grid item sm={9} xs={12} className="playerrow">
+										{player_statistics.battingStyle}
+									</Grid>
+									<Divider />
+									<Grid item sm={3} xs={12}>
+										<span className="font_heading">Bowling Style</span>
+									</Grid>
+									<Grid item sm={9} xs={12} className="playerrow">
+										{player_statistics.bowlingStyle}
+									</Grid>
+									<Divider />
+									<Grid item sm={3} xs={12}>
+										<span className="font_heading">Player Role</span>
+									</Grid>
+									<Grid item sm={9} xs={12} className="playerrow">
+										{player_statistics.playingRole}
+									</Grid>
+									<Divider />
+									<Grid item sm={3} xs={12}>
+										<span className="font_heading">Teams</span>
+									</Grid>
+									<Grid item sm={9} xs={12} className="playerrow">
+										{player_statistics.majorTeams}
+									</Grid>
+									<Divider/>
+								</Grid>
+							</CardContent>
+						</Grid>
+						<Grid data-aos="fade-up" item sm={12}>
+							<Typography variant="body2" style={{textAlign:'justify',color: '#000',marginTop:10, marginBottom: 10, lineHeight:2, fontSize: 16}} color="textSecondary" component="p">
+								{player_statistics.profile}
+							</Typography>
+						</Grid>
+						<Grid data-aos="fade-up" item sm={12} xs={12}>
+						<div><h2>Batting Career Summary</h2></div>
+							<div className="scoreTable">
+								<table>
+									<thead>
+										<tr>
+											<th></th>
+											<th>4s</th>
+											<th>6s</th>
+											<th>50</th>
+											<th>100</th>
+											<th title="Average">Ave</th>
+											<th title="Ball Faced">BF</th>
+											<th title="Catches">Ct</th>
+											<th title="High Score">Hs</th>
+											<th title="Innings">Inns</th>
+											<th>Mat</th>
+											<th title="No Balls">NO</th>
+											<th>Runs</th>
+											<th title="Strike Rate">SR</th>
+										</tr>
+									</thead>
+									<tbody>
+									{displayODI ? displayODI : <tr><td colSpan="14">Not Played any ODI Matches</td></tr>}
+									{displayT20 ? displayT20 : <tr><td colSpan="14">Not Played any T20 Matches</td></tr>}
+									{displayfirstClass ? displayfirstClass : <tr><td colSpan="14">Not Played any Firstclass Matches</td></tr>}
+									{displayListA ? displayListA : <tr><td colSpan="14">Not Played any List-A Matches</td></tr>}
+									{displayTests ? displayTests : <tr><td colSpan="14">Not Played any Test Matches</td></tr>}
+									</tbody>
+								</table>
+							</div>
+						<div><h2>Bowling Career Summary</h2></div>
+							<div className="scoreTable">
+								<table>
+									<thead>
+										<tr>
+											<th></th>
+											<th title="4 Wickets in an innings">4w</th>
+											<th title="5 Wickets in an innings">5w</th>
+											<th>10</th>
+											<th title="Average">Ave</th>
+											<th title="Best Bowling in Innings">BBI</th>
+											<th title="Best Bowling in Match">BBM</th>
+											<th>Balls</th>
+											<th title="Economy rate">Econ</th>
+											<th>Inns</th>
+											<th>Mat</th>
+											<th>Runs</th>
+											<th title="Strike Rate">SR</th>
+											<th title="Wickets">Wkts</th>
+										</tr>
+									</thead>
+									<tbody>
+										{displayODIBow ? displayODIBow : <tr><td colSpan="14">Not Played any ODI Matches</td></tr>}
+										{displayT20Bow ? displayT20Bow : <tr><td colSpan="14">Not Played any T20 Matches</td></tr>}
+										{displayfirstClassBow ? displayfirstClassBow : <tr><td colSpan="14">Not Played any Firstclass Matches</td></tr>}
+										{displayListABow ? displayListABow : <tr><td colSpan="14">Not Played any List-A Matches</td></tr>}
+										{displayTestsBow ? displayTestsBow : <tr><td colSpan="14">Not Played any Test Matches</td></tr>}
+									</tbody>
+								</table>
+							</div>
+						</Grid>
+						</Grid>
+						<Button variant="contained" color="primary" style={{marginTop:10}}>
+						<Link to={"/home"}><span>Back</span></Link>
+						</Button>
+					</Card>
 				</Grid>
 				)
 		}
 		else if(player_statistics.error == "error"){
 			return(
 				<Grid container spacing={12}>
-				<div data-aos="flip-left" className="player_search">
-				<Card className="card_search">
-				<CardContent className="cardText">
-				<TextField
-				className="standard-name"
-				variant="outlined"
-				label="Player Name"
-				onChange={this.handleChangeEnd}
-				margin="normal"
-				style={{marginBottom:0}}
-				/>
-				<Button style={{marginLeft:11,marginTop:9}} variant="contained" color="primary" onClick={this.handleClick}>
-				Search
-				</Button>
-				</CardContent>
-				</Card>
-				<center><p>Sorry No Such Player Exist</p></center>
-				<div className="imageClass">
-				<img src={background} style={{height:300,width:280,marginTop:3}}></img>
-				</div>
-				</div>
+					<div data-aos="flip-left" className="player_search">
+						<Card className="card_search">
+							<CardContent className="cardText">
+								<TextField
+								className="standard-name"
+								variant="outlined"
+								label="Player Name"
+								onChange={this.handleChangeEnd}
+								margin="normal"
+								style={{marginBottom:0}}
+								/>
+								<Button style={{marginLeft:11,marginTop:9}} variant="contained" color="primary" onClick={this.handleClick}>
+									Search
+								</Button>
+							</CardContent>
+						</Card>
+						<center><p>Sorry No Such Player Exist</p></center>
+						<div className="imageClass">
+							<img src={background} style={{height:300,width:280,marginTop:3}}></img>
+						</div>
+					</div>
 				</Grid>
-				)
+			)
 		}
 	}	
 }

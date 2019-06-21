@@ -15,7 +15,6 @@ import "firebase/firestore";
 // import fire from './firebase';
 // import login from './login';
 
-
 var provider = new firebase.auth.FacebookAuthProvider();
 class Login extends Component {
 
@@ -30,31 +29,6 @@ class Login extends Component {
     })
   }
 
-  handleInputChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-  
-  handleSubmit = (event) => {
-    // console.log("Method called!!!!!!!!!!!!!");
-    firebase.auth().signInWithPopup(provider).then(function (result) {
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      // console.log(result);
-      // ...
-    }).catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
-  }
-
   render() {
     // console.log("email local", this.state.emailLocal);
     const { email, password, error, emailLocal } = this.state;
@@ -63,8 +37,8 @@ class Login extends Component {
     const responseFacebook = (response) => {
       // console.log(response);
       // console.log("email:",response.email);
-      // localStorage.setItem("email", "rajgohel0007@gmail.com");
-      localStorage.setItem("email",response.email);
+      localStorage.setItem("email", "rajgohel0007@gmail.com");
+      // localStorage.setItem("email",response.email);
       // this.props.history.push("/home");
       auth.login(() => {
         this.props.history.push("/home");
@@ -77,15 +51,15 @@ class Login extends Component {
           <div className="bg_class">
             <div className="login">
               <h1>CricBuzz</h1>
-              <Button variant="contained" color="primary" >
+              {/* <Button variant="contained" color="primary" >
               <FacebookLogin
               appId="2500849506601645"
               fields="name,email,picture"
               callback={responseFacebook}
               isMobile={true}
               />
-              </Button>
-              {/* <Button onClick={responseFacebook}>Log in</Button> */}
+              </Button> */}
+              <Button onClick={responseFacebook}>Log in</Button>
             </div>
           </div>
         </div>

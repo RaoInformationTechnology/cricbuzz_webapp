@@ -10,6 +10,7 @@
     "aos": "^2.3.4",
     "config.json": "0.0.4",
     "dangerously-set-inner-html": "^2.0.1",
+    "fetch-intercept": "^2.3.1",
     "firebase": "^6.0.2",
     "gatsby": "^2.9.4",
     "gh-pages": "^2.0.1",

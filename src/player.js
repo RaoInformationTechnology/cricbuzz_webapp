@@ -12,6 +12,7 @@ import loader from './loader.gif';
 import background from './player_bg1.jpg';
 import Swal from 'sweetalert2';
 import AOS from 'aos';
+import Loader from './Loader';
 
 class player extends Component{
 	constructor(props){
@@ -436,7 +437,7 @@ class player extends Component{
 		} else if(!player_statistics) {
 			return(
 				<div>
-					<img alt="" className="load" src={loader}></img>
+					<Loader />
 				</div>
 			)
 		} else if(isLoaded && player_statistics.fullName) {

@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import loader from './loader.gif';
 import auth from "./auth";
 import AOS from 'aos';
+import unregister from './intercept';
+import Loader from './Loader';
 
 function TabContainer(props) {
   return (
@@ -104,13 +106,21 @@ class SimpleTabs extends React.Component {
     // console.log("match_by_day",match_by_day);
     AOS.init();
 
- if(!isLoaded){
-      return(
-      <div><img alt="" className="load" src={loader}></img></div>
-      )
-    }else if(fireRedirect){
+//  if(!isLoaded){
+//       return(
+//       <div><img alt="" className="load" src={loader}></img></div>
+//       )
+//     }
+    // if(!isLoaded){
+    // return(
+    //     <div>
+    //       <Loader />
+    //     </div>
+    //     )
+    // } 
+    if(fireRedirect) {
       window.location.href = '/'
-    }else if(isLoaded){
+    } else if(isLoaded){
     return (
       <Grid container spacing={12}>
     	  <div className="main_container">
@@ -269,7 +279,7 @@ class SimpleTabs extends React.Component {
     }else{
       return(
         <div>
-          <center><h1>Sorry No Data Found</h1></center>
+          <center><h1>Loading</h1></center>
         </div>
         )
     }

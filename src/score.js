@@ -8,6 +8,7 @@ import loader from './loader.gif';
 // import  propservice from "./propService.js";
 import './score.css';
 import AOS from 'aos';
+import Loader from './Loader';
 
 class score extends Component{
 	constructor(props){
@@ -216,7 +217,7 @@ class score extends Component{
 		if(!this.state.isLoaded){
 			return(
 				<div>
-					<img alt="" className="load" src={loader}></img>
+					<Loader />
 				</div>
 			)
 		}

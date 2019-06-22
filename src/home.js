@@ -278,9 +278,7 @@ class SimpleTabs extends React.Component {
     );
     }else{
       return(
-        <div>
-          <center><h1>Loading</h1></center>
-        </div>
+        <div></div>
         )
     }
   }

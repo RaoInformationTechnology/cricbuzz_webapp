@@ -9,6 +9,7 @@ import loader from './loader.gif';
 import './score.css';
 import AOS from 'aos';
 import Loader from './Loader';
+import unregister from './intercept';
 
 class score extends Component{
 	constructor(props){
@@ -216,9 +217,7 @@ class score extends Component{
 		// console.log("match_start:",match_start);
 		if(!this.state.isLoaded){
 			return(
-				<div>
-					<Loader />
-				</div>
+				<div></div>
 			)
 		}
 		else if (this.state.isLoaded && this.state.score.matchData.data.batting[0].scores.length!==0) {	

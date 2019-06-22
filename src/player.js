@@ -13,6 +13,7 @@ import background from './player_bg1.jpg';
 import Swal from 'sweetalert2';
 import AOS from 'aos';
 import Loader from './Loader';
+import unregister from './intercept';
 
 class player extends Component{
 	constructor(props){
@@ -436,9 +437,7 @@ class player extends Component{
 				)
 		} else if(!player_statistics) {
 			return(
-				<div>
-					<Loader />
-				</div>
+				<div></div>
 			)
 		} else if(isLoaded && player_statistics.fullName) {
 			return(
@@ -474,7 +473,7 @@ class player extends Component{
 										<span className="font_heading">Born</span>
 									</Grid>
 									<Grid item sm={9} xs={12} className="playerrow">
-										player_statistics.born}
+										{player_statistics.born}
 									</Grid>
 									<Divider/>
 									<Grid item sm={3} xs={12}>
